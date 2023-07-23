@@ -1,0 +1,27 @@
+<form [formGroup]="loginForm">
+  <label>
+    Username:
+    <input formControlName="username" />
+  </label>
+  <label>
+    Password:
+    <input formControlName="password" type="password" />
+  </label>
+  <button type="submit">Login</button>
+</form>
+
+<form [formGroup]="registerForm">
+  <label>
+    Username:
+    <input formControlName="username" />
+  </label>
+  <label>
+    Password:
+    <input formControlName="password" type="password" />
+  </label>
+  <label>
+    Confirm Password:
+    <input formControlName="confirmPassword" type="password" />
+  </label>
+  <button type="submit">Register</button>
+</form>

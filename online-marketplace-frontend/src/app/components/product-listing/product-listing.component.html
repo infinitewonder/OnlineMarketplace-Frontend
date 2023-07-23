@@ -1,0 +1,31 @@
+<form [formGroup]="addProductForm">
+  <label>
+    Title:
+    <input formControlName="title" />
+  </label>
+  <label>
+    Description:
+    <input formControlName="description" />
+  </label>
+  <label>
+    Price:
+    <input formControlName="price" />
+  </label>
+  <button type="submit">Add Product</button>
+</form>
+
+<form [formGroup]="editProductForm">
+  <label>
+    Title:
+    <input formControlName="title" />
+  </label>
+  <label>
+    Description:
+    <input formControlName="description" />
+  </label>
+  <label>
+    Price:
+    <input formControlName="price" />
+  </label>
+  <button type="submit">Edit Product</button>
+</form>
