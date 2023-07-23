@@ -7,9 +7,9 @@ import * as Phaser from 'phaser';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit, OnDestroy {
-  game: Phaser.Game;
-  scene: Phaser.Scene;
-  item: Phaser.Physics.Arcade.Image;
+  game!: Phaser.Game;
+  scene!: Phaser.Scene;
+  item!: Phaser.Physics.Arcade.Image;
 
   constructor() {}
 
