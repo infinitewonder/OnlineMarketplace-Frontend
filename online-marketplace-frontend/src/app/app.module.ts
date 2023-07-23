@@ -16,6 +16,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthService } from './services/auth.service';
 import { ProductService } from './services/product.service';
 import { OrderService } from './services/order.service';
+import { RouterModule } from '@angular/router';
+
+const routes = [
+  { path: 'product-listing', component: ProductListingComponent },
+];
 
 @NgModule({
   declarations: [
@@ -34,6 +39,7 @@ import { OrderService } from './services/order.service';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     isDevMode() ? StoreDevtoolsModule.instrument() : [],
+    RouterModule.forRoot(routes),
   ],
   providers: [AuthService, ProductService, OrderService],
   bootstrap: [AppComponent],
