@@ -27,6 +27,10 @@ export class GameComponent implements OnInit, OnDestroy {
     this.game = new Phaser.Game(config);
   }
 
+  getScore(): number {
+    return this.gameService.getScore();
+  }
+
   ngOnDestroy(): void {
     this.gameService.postScore();
     this.game.destroy(true);
