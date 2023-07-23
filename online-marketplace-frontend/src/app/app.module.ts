@@ -3,37 +3,35 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { GameComponent } from './game/game.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { StatsComponent } from './stats/stats.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { StoreModule } from '@ngrx/store';
-import { ProductListingComponent } from './components/product-listing/product-listing.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { UserAuthComponent } from './components/user-auth/user-auth.component';
-import { CartComponent } from './components/cart/cart.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { reducers, metaReducers } from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AuthService } from './services/auth.service';
-import { ProductService } from './services/product.service';
-import { OrderService } from './services/order.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListingComponent,
-    ProductDetailComponent,
-    UserAuthComponent,
-    CartComponent,
-    CheckoutComponent,
+    LoginComponent,
+    GameComponent,
+    LeaderboardComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
-    StoreModule.forRoot(reducers, { metaReducers }),
-    isDevMode() ? StoreDevtoolsModule.instrument() : [],
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    StoreModule.forRoot({}, {})
   ],
-  providers: [AuthService, ProductService, OrderService],
-  bootstrap: [AppComponent],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
