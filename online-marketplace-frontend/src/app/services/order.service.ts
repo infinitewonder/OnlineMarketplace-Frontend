@@ -7,37 +7,26 @@ import { Order } from '../models/order';
   providedIn: 'root',
 })
 export class OrderService {
+  private apiUrl = 'http://onlinemarketplace-production.up.railway.app/orders';
   constructor(private http: HttpClient) {}
 
   getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(
-      'http://onlinemarketplace-production.up.railway.app/orders'
-    );
+    return this.http.get<Order[]>(this.apiUrl);
   }
 
   getOrder(id: number): Observable<Order> {
-    return this.http.get<Order>(
-      `http://onlinemarketplace-production.up.railway.app/orders/${id}`
-    );
+    return this.http.get<Order>(`${this.apiUrl}/${id}`);
   }
 
   addOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(
-      'http://onlinemarketplace-production.up.railway.app/orders',
-      order
-    );
+    return this.http.post<Order>(this.apiUrl, order);
   }
 
   updateOrder(id: number, order: Order): Observable<Order> {
-    return this.http.put<Order>(
-      `http://onlinemarketplace-production.up.railway.app/orders/${id}`,
-      order
-    );
+    return this.http.put<Order>(`${this.apiUrl}/${id}`, order);
   }
 
   deleteOrder(id: number): Observable<any> {
-    return this.http.delete(
-      `http://onlinemarketplace-production.up.railway.app/orders/${id}`
-    );
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

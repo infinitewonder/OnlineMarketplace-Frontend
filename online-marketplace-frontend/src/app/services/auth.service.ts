@@ -8,15 +8,13 @@ import { User } from '../models/user';
 })
 export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
+  private apiUrl = 'http://onlinemarketplace-production.up.railway.app/users';
 
   constructor(private http: HttpClient) {}
 
   login(user: User) {
     return this.http
-      .post<any>(
-        'http://onlinemarketplace-production.up.railway.app/login',
-        user
-      )
+      .post<any>(`${this.apiUrl}/login`, user)
       .pipe(tap((tokens) => this.doLoginUser(user.username, tokens)));
   }
 
