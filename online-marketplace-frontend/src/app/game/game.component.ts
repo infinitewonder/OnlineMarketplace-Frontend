@@ -48,7 +48,7 @@ class MainScene extends Phaser.Scene {
       'item'
     );
     this.item.setInteractive();
-    this.item.on('pointerdown', (pointer) => {
+    this.item.on('pointerdown', (_pointer: any) => {
       // Increase score, POST to backend etc. Handle it here.
     });
   }
