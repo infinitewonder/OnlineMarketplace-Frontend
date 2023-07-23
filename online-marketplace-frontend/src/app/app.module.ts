@@ -10,7 +10,6 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { UserAuthComponent } from './components/user-auth/user-auth.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthService } from './services/auth.service';
@@ -31,7 +30,6 @@ import { OrderService } from './services/order.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
-    ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     isDevMode() ? StoreDevtoolsModule.instrument() : [],
   ],
