@@ -9,7 +9,6 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { StatsComponent } from './stats/stats.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import { StoreModule } from '@ngrx/store';
     LoginComponent,
     GameComponent,
     LeaderboardComponent,
-    StatsComponent
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,11 +26,10 @@ import { StoreModule } from '@ngrx/store';
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
-    StoreModule.forRoot({}, {})
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
