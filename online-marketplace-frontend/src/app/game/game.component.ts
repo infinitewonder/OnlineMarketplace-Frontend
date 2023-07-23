@@ -8,7 +8,6 @@ import * as Phaser from 'phaser';
 })
 export class GameComponent implements OnInit, OnDestroy {
   game!: Phaser.Game;
-  item!: Phaser.GameObjects.Image;
 
   constructor() {}
 
@@ -31,7 +30,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
 class MainScene extends Phaser.Scene {
   item!: Phaser.GameObjects.Image;
-  gameComponent!: GameComponent;
+  spawnTime!: number;
 
   constructor() {
     super({ key: 'main' });
@@ -51,10 +50,15 @@ class MainScene extends Phaser.Scene {
     this.item.on('pointerdown', (_pointer: any) => {
       // Increase score, POST to backend etc. Handle it here.
     });
+    this.spawnTime = this.time.now;
   }
 
   override update(): void {
-    this.item.x = Phaser.Math.Between(0, 800);
-    this.item.y = Phaser.Math.Between(0, 600);
+    if (this.time.now - this.spawnTime > 1000) {
+      // check if one second passed
+      this.item.x = Phaser.Math.Between(0, 800);
+      this.item.y = Phaser.Math.Between(0, 600);
+      this.spawnTime = this.time.now;
+    }
   }
 }
