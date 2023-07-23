@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,8 +7,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./user-auth.component.scss'],
 })
 export class UserAuthComponent implements OnInit {
-  loginForm: FormGroup;
-  registerForm: FormGroup;
+  loginForm!: FormGroup;
+  registerForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 

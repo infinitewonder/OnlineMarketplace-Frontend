@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,8 +7,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./product-listing.component.scss'],
 })
 export class ProductListingComponent implements OnInit {
-  addProductForm: FormGroup;
-  editProductForm: FormGroup;
+  addProductForm!: FormGroup;
+  editProductForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
