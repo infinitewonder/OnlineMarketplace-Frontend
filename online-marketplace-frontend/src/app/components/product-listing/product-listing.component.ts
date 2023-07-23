@@ -1,87 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-listing',
   templateUrl: './product-listing.component.html',
-  styleUrls: ['./product-listing.component.scss'],
+  styleUrls: ['./product-listing.component.css'],
 })
 export class ProductListingComponent implements OnInit {
   products: Product[] = [];
-  addProductForm!: FormGroup;
-  editProductForm!: FormGroup;
+  productForm: FormGroup;
+  editProductForm: FormGroup;
+  editMode = false;
+  selectedProduct: Product = {} as Product;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      productName: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+    });
+
+    this.editProductForm = this.fb.group({
+      productName: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+    });
+  }
 
   ngOnInit(): void {
-    this.initializeForms();
-    this.getProducts();
+    this.loadProducts();
   }
 
-  initializeForms() {
-    this.addProductForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
-    });
-
-    this.editProductForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
+  loadProducts(): void {
+    this.productService.getProducts().subscribe((products) => {
+      this.products = products;
     });
   }
 
-  getProducts() {
-    this.productService.getProducts().subscribe(
-      (products: Product[]) => {
-        this.products = products;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  addProduct(): void {
+    const product: Product = this.productForm.value;
+    this.productService.addProduct(product).subscribe((newProduct) => {
+      this.products.push(newProduct);
+      this.productForm.reset();
+    });
   }
 
-  addProduct() {
-    const productData = this.addProductForm.value;
-    this.productService.addProduct(productData).subscribe(
-      (response: Product) => {
-        this.products.push(response);
-        this.addProductForm.reset();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  editProduct(product: Product): void {
+    this.editMode = true;
+    this.selectedProduct = product;
+    this.editProductForm.setValue({
+      productName: product.productName,
+      description: product.description,
+      price: product.price,
+    });
   }
 
-  updateProduct() {
-    const productData = this.editProductForm.value;
-    this.productService.updateProduct(productData).subscribe(
-      (response: Product) => {
-        const updatedProductIndex = this.products.findIndex(
-          (p) => p.id == response.id
-        );
-        this.products[updatedProductIndex] = response;
-        this.editProductForm.reset();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  updateProduct(): void {
+    this.selectedProduct = this.editProductForm.value;
+    this.productService.updateProduct(this.selectedProduct).subscribe(() => {
+      this.loadProducts();
+      this.editMode = false;
+      this.editProductForm.reset();
+    });
   }
 
-  deleteProduct(id: number) {
-    this.productService.deleteProduct(id).subscribe(
-      (response: any) => {
-        this.products = this.products.filter((product) => product.id !== id);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  cancelEdit(): void {
+    this.editMode = false;
+    this.editProductForm.reset();
+  }
+
+  deleteProduct(product: Product): void {
+    this.productService.deleteProduct(product.id).subscribe(() => {
+      this.loadProducts();
+    });
   }
 }
