@@ -5,8 +5,7 @@
         "ng": "ng",
         "start": "http-server dist/online-marketplace-frontend -p 4200",
         "build": "ng build",
-        "watch": "ng build --watch --configuration development",
-        "prestart": "ng build --prod",
+        "prestart": "ng build",
         "test": "ng test"
     },
     "private": true,
