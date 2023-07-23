@@ -5,9 +5,28 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GameService {
-  private url = '/api/game'; // URL to backend
+  private url = '/api/game';
+  private _score: number = 0;
 
   constructor(private http: HttpClient) {}
 
-  // Implement game related methods, using http.post(), http.get(), etc
+  getScore(): number {
+    return this._score;
+  }
+
+  incrementScore(): void {
+    this._score += 1;
+  }
+
+  resetScore(): void {
+    this._score = 0;
+  }
+
+  postScore(): void {
+    this.http.post(this.url, { score: this._score }).subscribe({
+      next: (response) => console.log(response),
+      error: (err) => console.log(err),
+    });
+    this.resetScore();
+  }
 }
