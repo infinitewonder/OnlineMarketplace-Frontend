@@ -51,15 +51,9 @@ class MainScene extends Phaser.Scene {
     this.item.on('pointerdown', (_pointer: any) => {
       // Increase score, POST to backend etc. Handle it here.
     });
-    this.time.addEvent({
-      delay: 2000,
-      callback: this.moveItem,
-      callbackScope: this,
-      loop: true,
-    });
   }
 
-  moveItem(): void {
+  override update(): void {
     this.item.x = Phaser.Math.Between(0, 800);
     this.item.y = Phaser.Math.Between(0, 600);
   }
