@@ -8,54 +8,53 @@ import * as Phaser from 'phaser';
 })
 export class GameComponent implements OnInit, OnDestroy {
   game!: Phaser.Game;
-  scene!: Phaser.Scene;
-  item!: Phaser.Physics.Arcade.Image;
+  item!: Phaser.GameObjects.Image;
 
   constructor() {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const config: Phaser.Types.Core.GameConfig = {
       title: 'Sample',
       parent: 'gameContainer',
       width: 800,
       height: 600,
       type: Phaser.AUTO,
-      scene: {
-        preload: this.preload,
-        create: this.create,
-        update: this.update,
-      },
+      scene: [MainScene],
     };
-
     this.game = new Phaser.Game(config);
   }
 
+  ngOnDestroy(): void {
+    this.game.destroy(true);
+  }
+}
+
+class MainScene extends Phaser.Scene {
+  item!: Phaser.GameObjects.Image;
+  gameComponent!: GameComponent;
+
+  constructor() {
+    super({ key: 'main' });
+  }
+
   preload(): void {
-    this.load.image('item', 'assets//item.png'); // Replace item.png with the path to your own asset.
+    this.load.image('item', 'assets/item.png');
   }
 
   create(): void {
-    // Create item at random position
-    this.item = this.physics.add.image(
+    this.item = this.add.image(
       Phaser.Math.Between(0, 800),
       Phaser.Math.Between(0, 600),
       'item'
     );
     this.item.setInteractive();
-
-    // Register click event
     this.item.on('pointerdown', (pointer) => {
-      // Increase score, POST to backend, etc. Handle it here.
+      // Increase score, POST to backend etc. Handle it here.
     });
   }
 
-  update(): void {
-    // Move item to random position
+  override update(): void {
     this.item.x = Phaser.Math.Between(0, 800);
     this.item.y = Phaser.Math.Between(0, 600);
-  }
-
-  ngOnDestroy() {
-    this.game.destroy(true);
   }
 }
