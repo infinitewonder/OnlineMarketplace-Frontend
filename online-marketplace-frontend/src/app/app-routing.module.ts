@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './login';
-import { GameComponent } from './game';
-import { LeaderboardComponent } from './leaderboard';
-import { StatsComponent } from './stats';
+import { LoginComponent } from './login/login.component';
+import { GameComponent } from './game/game.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
