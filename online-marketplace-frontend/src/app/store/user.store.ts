@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { UserState } from './user.state';
+
+export interface User {
+  id: number;
+  username: string;
+  // add other necessary user properties
+}
+
+export interface UserState {
+  user: User | null;
+}
 
 export function createInitialState(): UserState {
   return {

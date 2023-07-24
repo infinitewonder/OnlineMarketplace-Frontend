@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { UserStore } from './user.store';
+import { UserStore } from './store/user.store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private loggedIn = false;
 
-  constructor(private userStore: UserStore, private http: HttpClient) { 
+  constructor(private userStore: UserStore, private http: HttpClient) {
     this.loggedIn = !!localStorage.getItem('userToken');
   }
 
-  login(credentials) {
+  login(credentials: any) {
     return this.http.post('/api/login', credentials).pipe(
-      tap(user => {
+      tap((user) => {
         this.userStore.update(user);
         this.loggedIn = true;
         localStorage.setItem('userToken', 'loggedInUserToken');
-      });
-    )
+      })
+    );
   }
 
   isLoggedIn() {
