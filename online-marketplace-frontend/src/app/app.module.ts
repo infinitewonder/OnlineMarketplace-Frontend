@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { GameComponent } from './game/game.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { StatsComponent } from './stats/stats.component';
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { GameService } from './game.service';
+import { UserService } from './user.service';
 import { UserStore } from './store/user.store';
 
 import { NgxWebstorageModule } from 'ngx-webstorage';
@@ -25,6 +27,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
     GameComponent,
     LeaderboardComponent,
     StatsComponent,
@@ -46,7 +49,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
     NgxWebstorageModule.forRoot(),
     AkitaNgDevtools.forRoot({ logTrace: isDevMode() }),
   ],
-  providers: [GameService, UserStore],
+  providers: [GameService, UserService, UserStore],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
