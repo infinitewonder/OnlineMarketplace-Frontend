@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
@@ -9,38 +11,47 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
+  loginFailed!: boolean;
+  loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private fb: FormBuilder
-  ) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+    private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit() {
+    this.loginForm = this.buildLoginForm();
+  }
+
+  private buildLoginForm() {
+    return this.formBuilder.group({
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
 
-  ngOnInit() {
-    // Checks if the user is already logged in
-    if (this.userService.isLoggedIn()) {
-      this.router.navigate(['']);
+  onLogin() {
+    if (this.loginForm.invalid) {
+      return;
     }
-  }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value).subscribe(
-        (res) => {
-          this.router.navigate(['']);
-        },
-        (err) => {
-          // handle error
-        }
-      );
-    } else {
-      // handle form validation errors
-    }
+    this.loading.next(true);
+    this.userService.login(this.loginForm.value).subscribe(
+      () => {
+        this.loading.next(false);
+        this.router.navigate(['']);
+      },
+      (error) => {
+        this.loading.next(false);
+        this.snackBar.open(
+          'Failed to login. Please check your username or password.',
+          '',
+          { duration: 4000 }
+        );
+      }
+    );
   }
 }
