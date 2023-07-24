@@ -12,6 +12,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
 
 import { GameService } from './game.service';
+import { UserStore } from './store/user.store';
+
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { AkitaNgEffectsModule } from '@datorama/akita-ng-effects';
 
 @NgModule({
   declarations: [
@@ -32,8 +37,11 @@ import { GameService } from './game.service';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    NgxWebstorageModule.forRoot(),
+    AkitaNgDevtools.forRoot({ logTrace: isDevMode() }),
+    AkitaNgEffectsModule.forRoot([]),
   ],
-  providers: [GameService],
+  providers: [GameService, UserStore],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
