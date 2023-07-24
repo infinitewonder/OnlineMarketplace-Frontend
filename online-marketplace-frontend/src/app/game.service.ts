@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GameService {
   private url = '/api/game';
   private _score: number = 0;
