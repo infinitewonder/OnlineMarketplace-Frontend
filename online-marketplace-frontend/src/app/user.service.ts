@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService {
   private baseUrl = 'http://onlinemarketplace-production.up.railway.app/users';
   private loggedIn = new BehaviorSubject<boolean>(false);
+  private user: any;
 
   constructor(private userStore: UserStore, private http: HttpClient) {}
 
@@ -19,9 +20,14 @@ export class UserService {
         if (res) {
           this.userStore.update(res);
           this.loggedIn.next(true);
+          this.user = res.user;
         }
       })
     );
+  }
+
+  getCurrentUser() {
+    return this.user;
   }
 
   register(user: any) {
