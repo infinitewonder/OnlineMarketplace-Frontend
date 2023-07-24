@@ -16,7 +16,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { GameService } from './game.service';
 import { UserService } from './user.service';
@@ -45,7 +44,6 @@ import { ProfileComponent } from './profile/profile.component';
     MatFormFieldModule,
     MatToolbarModule,
     MatTableModule,
-    MatProgressSpinnerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
