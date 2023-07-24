@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { UserService } from './user.service';
 import { tap } from 'rxjs/operators';
+import { UserQuery } from './store/user.query';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +12,12 @@ export class GameService {
   private _score: number = 0;
   private user: any;
 
-  constructor(private http: HttpClient, private userService: UserService) {
-    this.userService.getLoggedInUser().subscribe((user) => {
-      this.user = user;
-    });
+  constructor(private http: HttpClient, private userQuery: UserQuery) {
+    this.userQuery
+      .select((state) => state.user)
+      .subscribe((user) => {
+        this.user = user;
+      });
   }
 
   getScore(): number {
@@ -32,19 +33,17 @@ export class GameService {
   }
 
   postScore(): void {
-    this.userService.getLoggedInUser().subscribe((user) => {
-      if (user) {
-        this.http
-          .post(this.baseUrl, { user: user.id, score: this._score })
-          .pipe(tap(() => this.resetScore()))
-          .subscribe({
-            next: (response) => {
-              console.log(response);
-            },
-            error: (err) => console.log(err),
-          });
-      }
-    });
+    if (this.user) {
+      this.http
+        .post(this.baseUrl, { user: this.user.id, score: this._score })
+        .pipe(tap(() => this.resetScore()))
+        .subscribe({
+          next: (response) => {
+            console.log(response);
+          },
+          error: (err) => console.log(err),
+        });
+    }
   }
 
   getScoresByUserId(userId: number) {

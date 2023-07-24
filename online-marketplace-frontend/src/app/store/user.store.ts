@@ -8,14 +8,15 @@ export interface User {
 }
 
 export interface UserState {
-  user: User | null;
+  user?: User;
 }
 
 export function createInitialState(): UserState {
   return {
-    user: null,
+    user: undefined,
   };
 }
+
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'user' })
 export class UserStore extends Store<UserState> {
