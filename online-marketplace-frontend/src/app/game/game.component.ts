@@ -65,6 +65,7 @@ class MainScene extends Phaser.Scene {
       if (this.item.texture.key == 'thumb-up') {
         this.gameService.incrementScore();
       } else {
+        console.log('You clicked on the negative item. Game over!');
         // If user clicked on negative item, end the game
         this.gameService.postScore();
         this.scene.stop(); // ends current scene; game over
