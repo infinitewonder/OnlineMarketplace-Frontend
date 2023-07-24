@@ -22,6 +22,7 @@ export class UserService {
   login(credentials: any) {
     return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
       tap((res: any) => {
+        console.log(res);
         if (res) {
           this.userStore.update({ user: res.user });
           this.loggedIn.next(true);
