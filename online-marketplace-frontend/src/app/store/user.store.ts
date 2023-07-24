@@ -4,6 +4,7 @@ import { Store, StoreConfig } from '@datorama/akita';
 export interface User {
   id: number;
   username: string;
+  email: string;
   // add other necessary user properties
 }
 

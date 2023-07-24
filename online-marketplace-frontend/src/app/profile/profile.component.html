@@ -1,1 +1,20 @@
-<p>profile works!</p>
+<h2>Profile</h2>
+<div class="profile-container">
+  <mat-card>
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+      <mat-form-field class="profile-update-form">
+        <input matInput placeholder="Username" formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field class="profile-update-form">
+        <input matInput placeholder="Email" formControlName="email" />
+      </mat-form-field>
+
+      <button mat-button color="primary" type="submit">Update</button>
+    </form>
+  </mat-card>
+
+  <button mat-button color="primary" (click)="onDelete()">
+    Delete Account
+  </button>
+</div>

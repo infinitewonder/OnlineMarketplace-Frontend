@@ -22,6 +22,7 @@ export class LeaderboardComponent implements OnInit {
         if (leaderboard) {
           this.leaderBoardData = leaderboard;
           this.leaderBoardData.sort((a, b) => b.score - a.score);
+          this.leaderBoardData = this.leaderBoardData.slice(0, 10);
         }
       },
       (error) => {
