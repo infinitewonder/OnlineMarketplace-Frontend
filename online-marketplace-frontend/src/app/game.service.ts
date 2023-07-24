@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { UserService } from './user.service';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +9,10 @@ export class GameService {
   private baseUrl =
     'https://onlinemarketplace-production.up.railway.app/scores';
   private _score: number = 0;
-  private user: any;
+  private user;
 
-  constructor(private http: HttpClient, private userService: UserService) {
-    this.userService.getLoggedInUser().subscribe((user) => {
-      this.user = user;
-    });
+  constructor(private userService: UserService, private http: HttpClient) {
+    this.user = this.userService.getCurrentUser();
   }
 
   getScore(): number {
@@ -34,10 +30,10 @@ export class GameService {
   postScore(): void {
     this.http
       .post(this.baseUrl, { user: this.user, score: this._score })
-      .pipe(tap(() => this.resetScore()))
       .subscribe({
         next: (response) => {
           console.log(response);
+          this.resetScore();
         },
         error: (err) => console.log(err),
       });
