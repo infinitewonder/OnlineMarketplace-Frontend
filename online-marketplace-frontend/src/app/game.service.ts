@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GameService {
-  private url = '/api/game';
+  private baseUrl = 'http://onlinemarketplace-production.up.railway.app/scores';
   private _score: number = 0;
 
   constructor(private http: HttpClient) {}
@@ -22,11 +22,21 @@ export class GameService {
     this._score = 0;
   }
 
-  postScore(): void {
-    this.http.post(this.url, { score: this._score }).subscribe({
-      next: (response) => console.log(response),
+  postScore(user: any): void {
+    this.http.post(this.baseUrl, { user: user, score: this._score }).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.resetScore();
+      },
       error: (err) => console.log(err),
     });
-    this.resetScore();
+  }
+
+  getScoresByUserId(userId: number) {
+    return this.http.get(`${this.baseUrl}/${userId}`);
+  }
+
+  getLeaderboard() {
+    return this.http.get(`${this.baseUrl}/leaderboard`);
   }
 }

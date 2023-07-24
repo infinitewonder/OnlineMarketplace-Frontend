@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { GameComponent } from './game/game.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { StatsComponent } from './stats/stats.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +22,7 @@ import { UserStore } from './store/user.store';
 
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
     RegisterComponent,
     GameComponent,
     LeaderboardComponent,
-    StatsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

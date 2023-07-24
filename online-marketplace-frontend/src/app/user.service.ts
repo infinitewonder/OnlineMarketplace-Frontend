@@ -2,30 +2,46 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { UserStore } from './store/user.store';
-
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private baseUrl = 'http://onlinemarketplace-production.up.railway.app/users';
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private userStore: UserStore, private http: HttpClient) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this.loggedIn.next(true);
-    }
-  }
+  constructor(private userStore: UserStore, private http: HttpClient) {}
 
   login(credentials: any) {
-    return this.http.post('/api/login', credentials).pipe(
-      tap((user) => {
-        this.userStore.update(user);
-        this.loggedIn.next(true);
-        localStorage.setItem('userToken', 'loggedInUserToken');
+    return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
+      tap((res: any) => {
+        if (res) {
+          this.userStore.update(res);
+          this.loggedIn.next(true);
+        }
       })
     );
+  }
+
+  register(user: any) {
+    return this.http.post(`${this.baseUrl}/register`, user);
+  }
+
+  getUsers() {
+    return this.http.get(`${this.baseUrl}`);
+  }
+
+  getUserById(id: number) {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  updateUser(user: any) {
+    return this.http.put(`${this.baseUrl}`, user);
   }
 
   isLoggedIn() {
@@ -34,7 +50,6 @@ export class UserService {
 
   logout() {
     this.loggedIn.next(false);
-    localStorage.removeItem('userToken');
     this.userStore.reset();
   }
 }
