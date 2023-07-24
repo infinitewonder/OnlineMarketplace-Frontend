@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,10 @@ import { UserService } from './user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'online-marketplace-frontend';
-
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private router: Router) {}
 
   logout() {
     this.userService.logout();
+    this.router.navigate(['/login']);
   }
 }
