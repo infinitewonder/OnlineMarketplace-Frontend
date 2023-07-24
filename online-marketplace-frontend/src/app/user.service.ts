@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://onlinemarketplace-production.up.railway.app/users';
+  private baseUrl = 'https://onlinemarketplace-production.up.railway.app/users';
   private loggedIn = new BehaviorSubject<boolean>(false);
   private user: any;
 

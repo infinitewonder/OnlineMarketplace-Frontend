@@ -6,7 +6,8 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class GameService {
-  private baseUrl = 'http://onlinemarketplace-production.up.railway.app/scores';
+  private baseUrl =
+    'https://onlinemarketplace-production.up.railway.app/scores';
   private _score: number = 0;
   private user;
 
