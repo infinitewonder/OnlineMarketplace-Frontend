@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // Checks if the user is already logged in
     if (this.userService.isLoggedIn()) {
-      this.router.navigate(['/game']);
+      this.router.navigate(['']);
     }
   }
 
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.userService.login(this.loginForm.value).subscribe(
         (res) => {
-          this.router.navigate(['/game']);
+          this.router.navigate(['']);
         },
         (err) => {
           // handle error
