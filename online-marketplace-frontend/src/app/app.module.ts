@@ -16,7 +16,7 @@ import { UserStore } from './store/user.store';
 
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { AkitaNgEffectsModule } from '@datorama/akita-ng-effects';
+import { EffectsRootModule } from '@datorama/akita-ng-effects';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { AkitaNgEffectsModule } from '@datorama/akita-ng-effects';
     }),
     NgxWebstorageModule.forRoot(),
     AkitaNgDevtools.forRoot({ logTrace: isDevMode() }),
-    AkitaNgEffectsModule.forRoot([]),
+    EffectsRootModule,
   ],
   providers: [GameService, UserStore],
   bootstrap: [AppComponent],
