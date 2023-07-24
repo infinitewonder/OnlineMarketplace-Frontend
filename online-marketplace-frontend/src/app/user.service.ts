@@ -3,34 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { UserStore } from './store/user.store';
 
+import { BehaviorSubject } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private loggedIn = false;
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private userStore: UserStore, private http: HttpClient) {
-    this.loggedIn = !!localStorage.getItem('userToken');
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      this.loggedIn.next(true);
+    }
   }
 
   login(credentials: any) {
     return this.http.post('/api/login', credentials).pipe(
       tap((user) => {
         this.userStore.update(user);
-        this.loggedIn = true;
+        this.loggedIn.next(true);
         localStorage.setItem('userToken', 'loggedInUserToken');
       })
     );
   }
 
   isLoggedIn() {
-    return this.loggedIn;
+    return this.loggedIn.asObservable();
   }
 
-  // Implement logout and possibly a register method here
   logout() {
-    this.loggedIn = false;
+    this.loggedIn.next(false);
     localStorage.removeItem('userToken');
-    this.userStore.reset(); // Resets the UserStore state
+    this.userStore.reset();
   }
 }
