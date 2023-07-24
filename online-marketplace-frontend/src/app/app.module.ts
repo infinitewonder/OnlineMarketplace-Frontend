@@ -18,9 +18,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-// import { GameService } from './game.service';
-// import { UserService } from './user.service';
-// import { UserStore } from './store/user.store';
+import { GameService } from './game.service';
+import { UserService } from './user.service';
+import { UserStore } from './store/user.store';
 
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
@@ -55,8 +55,8 @@ import { ProfileComponent } from './profile/profile.component';
     NgxWebstorageModule.forRoot(),
     AkitaNgDevtools.forRoot({ logTrace: isDevMode() }),
   ],
-  //   providers: [GameService, UserService, UserStore],
-  providers: [],
+  providers: [GameService, UserService, UserStore],
+  //   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
