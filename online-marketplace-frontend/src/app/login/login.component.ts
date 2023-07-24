@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
@@ -11,47 +9,38 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  loginFailed!: boolean;
-  loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  loginForm: FormGroup;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder
-  ) {}
-
-  ngOnInit() {
-    this.loginForm = this.buildLoginForm();
-  }
-
-  private buildLoginForm() {
-    return this.formBuilder.group({
-      username: ['', [Validators.required, Validators.email]],
+    private fb: FormBuilder
+  ) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  onLogin() {
-    if (this.loginForm.invalid) {
-      return;
+  ngOnInit() {
+    // Checks if the user is already logged in
+    if (this.userService.isLoggedIn()) {
+      this.router.navigate(['']);
     }
+  }
 
-    this.loading.next(true);
-    this.userService.login(this.loginForm.value).subscribe(
-      () => {
-        this.loading.next(false);
-        this.router.navigate(['']);
-      },
-      (error) => {
-        this.loading.next(false);
-        this.snackBar.open(
-          'Failed to login. Please check your username or password.',
-          '',
-          { duration: 4000 }
-        );
-      }
-    );
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.userService.login(this.loginForm.value).subscribe(
+        (res) => {
+          this.router.navigate(['']);
+        },
+        (err) => {
+          // handle error
+        }
+      );
+    } else {
+      // handle form validation errors
+    }
   }
 }
