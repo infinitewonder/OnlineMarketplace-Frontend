@@ -32,15 +32,19 @@ export class GameService {
   }
 
   postScore(): void {
-    this.http
-      .post(this.baseUrl, { user: this.user, score: this._score })
-      .pipe(tap(() => this.resetScore()))
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (err) => console.log(err),
-      });
+    this.userService.getCurrentUser().subscribe((user) => {
+      if (user) {
+        this.http
+          .post(this.baseUrl, { user: user.id, score: this._score })
+          .pipe(tap(() => this.resetScore()))
+          .subscribe({
+            next: (response) => {
+              console.log(response);
+            },
+            error: (err) => console.log(err),
+          });
+      }
+    });
   }
 
   getScoresByUserId(userId: number) {
