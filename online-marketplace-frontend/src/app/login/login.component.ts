@@ -33,11 +33,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('LOGIN', this.loginForm.value);
       this.userService.login(this.loginForm.value).subscribe({
         next: (res) => {
-          console.log('res');
-          console.log(res);
           this.userStore.update((state) => ({ ...state, user: res }));
           this.router.navigate(['']);
         },
