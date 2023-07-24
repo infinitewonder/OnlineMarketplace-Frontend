@@ -14,9 +14,8 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const mainScene = new MainScene(this.gameService);
-
     const config: Phaser.Types.Core.GameConfig = {
-      title: 'Sample',
+      title: 'Quick Click',
       parent: 'gameContainer',
       width: 800,
       height: 600,
@@ -53,6 +52,10 @@ class MainScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.spawnNewItem();
+  }
+
+  spawnNewItem(): void {
     this.item = this.add.image(
       Phaser.Math.Between(0, 800),
       Phaser.Math.Between(0, 600),
@@ -64,11 +67,10 @@ class MainScene extends Phaser.Scene {
     this.item.on('pointerdown', () => {
       if (this.item.texture.key == 'thumb-up') {
         this.gameService.incrementScore();
+        this.spawnNewItem();
       } else {
         console.log('You clicked on the negative item. Game over!');
-        // If user clicked on negative item, end the game
-        this.gameService.postScore();
-        this.scene.stop(); // ends current scene; game over
+        this.scene.stop();
       }
     });
 
@@ -76,11 +78,8 @@ class MainScene extends Phaser.Scene {
   }
 
   override update(): void {
-    if (this.time.now - this.spawnTime > 1000) {
-      this.item.x = Phaser.Math.Between(0, 800);
-      this.item.y = Phaser.Math.Between(0, 600);
-      this.item.setTexture(Math.random() > 0.5 ? 'thumb-up' : 'thumb-down');
-      this.spawnTime = this.time.now;
+    if (this.time.now - this.spawnTime > Phaser.Math.Between(1000, 2000)) {
+      this.spawnNewItem();
     }
   }
 }

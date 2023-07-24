@@ -1,0 +1,17 @@
+.game-container {
+  width: 100%;
+  height: calc(100vh - 50px);
+  background-color: #000;
+  margin: 0 auto;
+}
+
+.score-board {
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+  padding: 10px;
+}
+
+.score-display {
+  font-size: 2em;
+}
