@@ -16,7 +16,7 @@ export class GameService {
     this.userQuery
       .select((state) => state.user)
       .subscribe((user) => {
-        this.user = user;
+        this.user = user ? user : null;
       });
   }
 
