@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { GameService } from './game.service';
 import { UserService } from './user.service';
@@ -40,6 +41,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
     MatCardModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatToolbarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
