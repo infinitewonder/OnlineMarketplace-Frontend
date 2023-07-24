@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { UserStore, UserState, User } from './store/user.store';
+import { UserStore, User } from './store/user.store';
 import { GameService } from './game.service';
 
 @Injectable({
