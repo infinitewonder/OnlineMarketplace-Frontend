@@ -33,6 +33,8 @@ export class GameService {
   }
 
   postScore(): void {
+    console.log(this.user);
+    console.log(this._score);
     if (this.user) {
       const payload = {
         score: this._score,
