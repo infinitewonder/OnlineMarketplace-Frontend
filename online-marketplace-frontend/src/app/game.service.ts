@@ -15,7 +15,6 @@ export class GameService {
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.userService.getLoggedInUser().subscribe((user) => {
-      console.log('Received an update for logged in user:', user);
       this.user = user;
     });
   }
