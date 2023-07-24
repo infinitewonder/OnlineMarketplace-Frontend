@@ -44,6 +44,6 @@ export class GameService {
   }
 
   getLeaderboard() {
-    return this.http.get(`${this.baseUrl}/leaderboard`);
+    return this.http.get<any[]>(`${this.baseUrl}/leaderboard`);
   }
 }
