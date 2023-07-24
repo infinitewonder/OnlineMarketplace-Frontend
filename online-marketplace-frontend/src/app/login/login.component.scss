@@ -1,22 +1,17 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 3rem);
-  background-color: #f5f5f5;
-}
-
-.login-card {
+mat-card {
+  margin: 2em auto;
   width: 100%;
   max-width: 400px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.login-form-field {
+mat-form-field {
   width: 100%;
 }
 
-.login-button {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
+button {
+  margin-top: 1em;
 }
