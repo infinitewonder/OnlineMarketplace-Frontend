@@ -26,7 +26,7 @@ import { UserStore } from './store/user.store';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { ProfileComponent } from './profile/profile.component';
-//
+
 @NgModule({
   declarations: [
     AppComponent,
