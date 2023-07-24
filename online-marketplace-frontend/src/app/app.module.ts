@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
 
 import { GameService } from './game.service';
 import { UserService } from './user.service';
@@ -42,6 +43,7 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatToolbarModule,
+    MatTableModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
