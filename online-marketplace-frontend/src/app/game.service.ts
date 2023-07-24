@@ -34,8 +34,17 @@ export class GameService {
 
   postScore(): void {
     if (this.user) {
+      const payload = {
+        score: this._score,
+        user: {
+          id: this.user.id,
+          username: this.user.username,
+          email: this.user.email,
+        },
+      };
+
       this.http
-        .post(this.baseUrl, { user: this.user.id, score: this._score })
+        .post(this.baseUrl, payload)
         .pipe(tap(() => this.resetScore()))
         .subscribe({
           next: (response) => {
