@@ -43,14 +43,16 @@ export class ProfileComponent implements OnInit {
   }
 
   onDelete() {
-    this.userService.deleteUser(this.user!.id).subscribe({
-      next: (data) => {
-        this.userService.logout();
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        console.log('Error:', error);
-      },
+    this.userQuery.select().subscribe((userState) => {
+      this.userService.deleteUser(userState.user!.id).subscribe({
+        next: (data) => {
+          this.userService.logout();
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.log('Error:', error);
+        },
+      });
     });
   }
 
