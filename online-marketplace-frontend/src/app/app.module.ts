@@ -12,6 +12,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -40,6 +42,8 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserAnimationsModule,
     HttpClientModule,
     MatCardModule,
+    MatButtonModule,
+    MatInputModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatToolbarModule,
