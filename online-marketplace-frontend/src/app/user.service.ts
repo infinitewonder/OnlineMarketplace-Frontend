@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 import { UserStore } from './store/user.store';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,26 +11,23 @@ export class UserService {
   private baseUrl = 'https://onlinemarketplace-production.up.railway.app/users';
   private loggedIn = new BehaviorSubject<boolean>(false);
   private user: any;
-  private userSubject: Subject<any> = new Subject<any>();
 
   constructor(private userStore: UserStore, private http: HttpClient) {}
 
   login(credentials: any) {
     return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
       tap((res: any) => {
-        console.log('Login response:', res);
         if (res) {
           this.userStore.update(res);
           this.loggedIn.next(true);
           this.user = res.user;
-          this.userSubject.next(this.user);
         }
       })
     );
   }
 
-  getLoggedInUser(): Observable<any> {
-    return this.userSubject.asObservable();
+  getCurrentUser() {
+    return this.user;
   }
 
   register(user: any) {
@@ -61,7 +57,5 @@ export class UserService {
   logout() {
     this.loggedIn.next(false);
     this.userStore.reset();
-    this.user = null;
-    this.userSubject.next(this.user);
   }
 }
