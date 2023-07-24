@@ -33,12 +33,6 @@ export class GameService {
   }
 
   postScore(): void {
-    this.userQuery
-      .select((state) => state.user)
-      .subscribe((user) => {
-        this.user = user ? user : null;
-      });
-
     console.log(this.user);
     console.log(this._score);
     if (this.user) {
