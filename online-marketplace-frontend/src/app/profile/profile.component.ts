@@ -43,15 +43,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onDelete() {
-    this.userService.deleteUser(this.user.id).subscribe(
-      (data) => {
+    this.userService.deleteUser(this.user!.id).subscribe({
+      next: (data) => {
         this.userService.logout();
         this.router.navigate(['/login']);
       },
-      (error) => {
+      error: (error) => {
         console.log('Error:', error);
-      }
-    );
+      },
+    });
   }
 
   onUpdate() {
@@ -59,14 +59,14 @@ export class ProfileComponent implements OnInit {
       this.userService
         .updateUser(this.profileForm.value)
         .pipe(first())
-        .subscribe(
-          (data) => {
-            this.router.navigate(['/game']);
+        .subscribe({
+          next: (data) => {
+            this.router.navigate(['/profile']);
           },
-          (error) => {
+          error: (error) => {
             console.log('Error:', error);
-          }
-        );
+          },
+        });
     }
   }
 }
