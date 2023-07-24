@@ -32,7 +32,7 @@ export class GameService {
   }
 
   postScore(): void {
-    this.userService.getCurrentUser().subscribe((user) => {
+    this.userService.getLoggedInUser().subscribe((user) => {
       if (user) {
         this.http
           .post(this.baseUrl, { user: user.id, score: this._score })
