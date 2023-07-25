@@ -87,7 +87,7 @@ class MainScene extends Phaser.Scene {
       this.spawnNewItem();
     }
   }
-
+  //
   private getItemSpawnTime(): number {
     const decrement = Math.min(this.gameService.getScore() / 500, 800);
     return 1000 - decrement;
