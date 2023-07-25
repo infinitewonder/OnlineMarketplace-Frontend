@@ -16,7 +16,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const mainScene = new MainScene(this.gameService);
 
     const config: Phaser.Types.Core.GameConfig = {
-      title: 'Clicker Game',
+      title: 'ClickerGame',
       parent: 'gameContainer',
       width: 800,
       height: 600,
