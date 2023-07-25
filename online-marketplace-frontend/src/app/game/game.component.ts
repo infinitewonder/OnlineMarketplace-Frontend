@@ -81,7 +81,7 @@ class MainScene extends Phaser.Scene {
     });
     this.spawnTime = this.time.now;
   }
-
+  //
   override update(): void {
     if (this.time.now - this.spawnTime > Phaser.Math.Between(1000, 2000)) {
       this.spawnNewItem();
