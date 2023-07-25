@@ -65,8 +65,9 @@ class MainScene extends Phaser.Scene {
     const randY = Math.random() * (height - 200) + 100;
 
     this.item = this.add
-      .sprite(randX, randY, Math.random() > 0.5 ? 'thumb-up' : 'thumb-down')
+      .image(randX, randY, Math.random() > 0.5 ? 'thumb-up' : 'thumb-down')
       .setScale(0.33);
+
     this.item.setInteractive();
 
     this.item.on('pointerdown', () => {
