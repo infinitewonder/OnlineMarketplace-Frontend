@@ -90,7 +90,7 @@ class MainScene extends Phaser.Scene {
   }
 
   private getItemSpawnTime(): number {
-    const decrement = Math.min(this.gameService.getScore() / 500, 800);
+    const decrement = Math.min(this.gameService.getScore() / 10, 800);
     return 1000 - decrement;
   }
 }
