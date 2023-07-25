@@ -76,7 +76,7 @@ class MainScene extends Phaser.Scene {
         this.spawnNewItem();
       } else {
         console.log('You clicked on the negative item. Game over!');
-        this.scene.start();
+        this.scene.stop();
       }
     });
 
