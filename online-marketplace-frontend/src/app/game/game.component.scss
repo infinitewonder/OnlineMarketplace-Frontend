@@ -1,8 +1,12 @@
 .game-container {
-  width: 100%;
-  height: calc(100vh - 50px);
+  width: 800px;
+  height: 600px;
   background-color: #000;
   margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .score-board {

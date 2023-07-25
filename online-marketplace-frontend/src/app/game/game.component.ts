@@ -21,6 +21,10 @@ export class GameComponent implements OnInit, OnDestroy {
       height: 600,
       type: Phaser.AUTO,
       scene: [mainScene],
+      scale: {
+        mode: Phaser.Scale.ScaleModes.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+      },
     };
 
     this.game = new Phaser.Game(config);
@@ -56,11 +60,13 @@ class MainScene extends Phaser.Scene {
   }
 
   spawnNewItem(): void {
-    this.item = this.add.image(
-      Phaser.Math.Between(0, 800),
-      Phaser.Math.Between(0, 600),
-      Math.random() > 0.5 ? 'thumb-up' : 'thumb-down'
-    );
+    this.item = this.add
+      .image(
+        this.cameras.main.centerX,
+        this.cameras.main.centerY,
+        Math.random() > 0.5 ? 'thumb-up' : 'thumb-down'
+      )
+      .setScale(0.5); // scale down the images
 
     this.item.setInteractive();
 
@@ -73,7 +79,6 @@ class MainScene extends Phaser.Scene {
         this.scene.stop();
       }
     });
-
     this.spawnTime = this.time.now;
   }
 
