@@ -86,7 +86,6 @@ class MainScene extends Phaser.Scene {
     }
   }
 
-  // Calculate the item spawn time based on current score.
   getItemSpawnTime(): number {
     // Decrement the spawn time per 500 points earned, with a minimum of 200 milliseconds
     const decrement = Math.min(this.gameService.getScore() / 500, 800);
