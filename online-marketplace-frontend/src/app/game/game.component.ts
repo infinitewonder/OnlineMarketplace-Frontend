@@ -8,6 +8,7 @@ import { GameService } from '../game.service';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit, OnDestroy {
+  score!: number;
   game!: Phaser.Game;
 
   constructor(private gameService: GameService) {}
@@ -25,6 +26,10 @@ export class GameComponent implements OnInit, OnDestroy {
     };
 
     this.game = new Phaser.Game(config);
+  }
+
+  getScore(): number {
+    return this.gameService.getScore();
   }
 
   ngOnDestroy(): void {
