@@ -57,13 +57,12 @@ class MainScene extends Phaser.Scene {
   }
 
   spawnNewItem(): void {
+    const randX = Math.random() * (this.sys.canvas.width - 200) + 100;
+    const randY = Math.random() * (this.sys.canvas.height - 200) + 100;
+
     this.item = this.add
-      .image(
-        this.cameras.main.centerX,
-        this.cameras.main.centerY,
-        Math.random() > 0.5 ? 'thumb-up' : 'thumb-down'
-      )
-      .setScale(0.33); // scale down the images
+      .image(randX, randY, Math.random() > 0.5 ? 'thumb-up' : 'thumb-down')
+      .setScale(0.33);
 
     this.item.setInteractive();
 
