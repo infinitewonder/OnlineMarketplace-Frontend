@@ -1,25 +1,21 @@
-html,
-body {
-  height: 100%;
+.game-container {
+  width: 800px;
+  height: 600px;
+  background-color: #000;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.game-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
+.score-board {
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+  padding: 10px;
 }
 
 .score-display {
-  font-size: 1.5em;
-  padding: 10px 0;
-  text-align: center;
-}
-
-#phaser-game {
-  display: inline-block;
-  border: 1px solid #000;
-  width: 800px;
-  height: 600px;
+  font-size: 2em;
 }
