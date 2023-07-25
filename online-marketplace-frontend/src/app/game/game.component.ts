@@ -8,7 +8,6 @@ import { GameService } from '../game.service';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit, OnDestroy {
-  score!: number;
   game!: Phaser.Game;
 
   constructor(private gameService: GameService) {}
@@ -17,7 +16,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const mainScene = new MainScene(this.gameService);
 
     const config: Phaser.Types.Core.GameConfig = {
-      title: 'Sample',
+      title: 'Clicker Game',
       parent: 'gameContainer',
       width: 800,
       height: 600,
@@ -26,10 +25,6 @@ export class GameComponent implements OnInit, OnDestroy {
     };
 
     this.game = new Phaser.Game(config);
-  }
-
-  getScore(): number {
-    return this.gameService.getScore();
   }
 
   ngOnDestroy(): void {
@@ -57,14 +52,16 @@ class MainScene extends Phaser.Scene {
     this.spawnNewItem();
   }
 
-  spawnNewItem(): void {
-    const randX = Math.random() * (this.sys.canvas.width - 200) + 100;
-    const randY = Math.random() * (this.sys.canvas.height - 200) + 100;
+  private spawnNewItem(): void {
+    if (this.item) this.item.destroy();
 
-    this.item = this.add
-      .image(randX, randY, Math.random() > 0.5 ? 'thumb-up' : 'thumb-down')
+    const { width, height } = this.sys.game.scale;
+    const randX = Math.random() * (width - 200) + 100;
+    const randY = Math.random() * (height - 200) + 100;
+
+    this.item = this.physics.add
+      .sprite(randX, randY, Math.random() > 0.5 ? 'thumb-up' : 'thumb-down')
       .setScale(0.33);
-
     this.item.setInteractive();
 
     this.item.on('pointerdown', () => {
@@ -73,7 +70,7 @@ class MainScene extends Phaser.Scene {
         this.spawnNewItem();
       } else {
         console.log('You clicked on the negative item. Game over!');
-        this.scene.stop();
+        this.scene.start();
       }
     });
 
@@ -85,9 +82,8 @@ class MainScene extends Phaser.Scene {
       this.spawnNewItem();
     }
   }
-  //
-  getItemSpawnTime(): number {
-    // Decrement the spawn time per 500 points earned, with a minimum of 200 milliseconds
+
+  private getItemSpawnTime(): number {
     const decrement = Math.min(this.gameService.getScore() / 500, 800);
     return 1000 - decrement;
   }
