@@ -14,17 +14,14 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const mainScene = new MainScene(this.gameService);
+
     const config: Phaser.Types.Core.GameConfig = {
-      title: 'Quick Click',
+      title: 'Sample',
       parent: 'gameContainer',
       width: 800,
       height: 600,
       type: Phaser.AUTO,
       scene: [mainScene],
-      scale: {
-        mode: Phaser.Scale.ScaleModes.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-      },
     };
 
     this.game = new Phaser.Game(config);
@@ -66,12 +63,12 @@ class MainScene extends Phaser.Scene {
         this.cameras.main.centerY,
         Math.random() > 0.5 ? 'thumb-up' : 'thumb-down'
       )
-      .setScale(0.5); // scale down the images
+      .setScale(0.33); // scale down the images
 
     this.item.setInteractive();
 
     this.item.on('pointerdown', () => {
-      if (this.item.texture.key == 'thumb-up') {
+      if (this.item.texture.key === 'thumb-up') {
         this.gameService.incrementScore();
         this.spawnNewItem();
       } else {
@@ -79,12 +76,20 @@ class MainScene extends Phaser.Scene {
         this.scene.stop();
       }
     });
+
     this.spawnTime = this.time.now;
   }
-  //
+
   override update(): void {
-    if (this.time.now - this.spawnTime > Phaser.Math.Between(1000, 2000)) {
+    if (this.time.now - this.spawnTime > this.getItemSpawnTime()) {
       this.spawnNewItem();
     }
+  }
+
+  // Calculate the item spawn time based on current score.
+  getItemSpawnTime(): number {
+    // Decrement the spawn time per 500 points earned, with a minimum of 200 milliseconds
+    const decrement = Math.min(this.gameService.getScore() / 500, 800);
+    return 1000 - decrement;
   }
 }

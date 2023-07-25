@@ -25,7 +25,7 @@ export class GameService {
   }
 
   incrementScore(): void {
-    this._score += 1;
+    this._score += 100;
   }
 
   resetScore(): void {
