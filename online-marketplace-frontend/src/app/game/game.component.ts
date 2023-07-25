@@ -58,7 +58,13 @@ class MainScene extends Phaser.Scene {
   }
 
   private spawnNewItem(): void {
-    if (this.item) this.item.destroy();
+    if (this.item) {
+      if (this.item.texture.key === 'thumb-up') {
+        this.endGame();
+        return;
+      }
+      this.item.destroy();
+    }
 
     const { width, height } = this.sys.game.scale;
     const randX = Math.random() * (width - 200) + 100;
@@ -81,6 +87,11 @@ class MainScene extends Phaser.Scene {
     });
 
     this.spawnTime = this.time.now;
+  }
+
+  private endGame(): void {
+    console.log('You missed a positive item. Game over!');
+    this.scene.start();
   }
 
   override update(): void {
